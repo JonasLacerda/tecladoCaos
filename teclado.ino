@@ -10,8 +10,8 @@ const byte ROWS = 10; //four rows
 const byte COLS = 5; //three columns
 
 char keys[ROWS][COLS] = {
-{10,':',';','p',8},
-{6,'.','l','o',99},
+{10,2,';','p',8},
+{6,7,'l','o',99},
 {11,12,'k','i',14},
 {16,'m','j','u',19},
 {' ','n','h','y',24},
@@ -38,7 +38,7 @@ void setup() {
     msg = "";
 
     Keyboard.begin();
-
+    Keyboard.releaseAll();
     u8g.setColorIndex(3);
     u8g.setFont(u8g_font_unifont);    
     pinMode(8, OUTPUT);
@@ -84,7 +84,7 @@ void loop() {
                 Serial.println(msg);
                 if(msg == " HOLD."){
                   if(kpd.key[i].kchar == 31){
-                    Keyboard.press(0x85);
+                    Keyboard.press(0x81);
                     u8g.firstPage(); 
                     do {
                       u8g.drawStr( 0, 22, "Teclado do Caos");
@@ -92,7 +92,7 @@ void loop() {
                     } while( u8g.nextPage() );
                   }
                   else if(kpd.key[i].kchar == 33){
-                    Keyboard.press(0x86);
+                    Keyboard.press(0x82);
                     u8g.firstPage(); 
                     do {
                       u8g.drawStr( 0, 22, "Teclado do Caos");
@@ -101,6 +101,14 @@ void loop() {
                   }
                   else if(kpd.key[i].kchar == 16){
                     Keyboard.press(0xD8);
+                  }
+                  else if(kpd.key[i].kchar == 36){
+                    u8g.firstPage(); 
+                    do {
+                      u8g.drawStr( 0, 22, "Teclado do Caos");
+                      u8g.drawStr( 0, 33, "NUM");
+                    } while( u8g.nextPage() );
+                    Serial.println(kpd.key[i].stateChanged)
                   }
                   else if(kpd.key[i].kchar == 12){
                     Keyboard.press(0xDA);
@@ -112,7 +120,7 @@ void loop() {
                     Keyboard.press(0xD7);
                   }
                   else if(kpd.key[i].kchar == 46){
-                    Keyboard.press(0x84); 
+                    Keyboard.press(0x80); 
                     u8g.firstPage(); 
                     do {
                       u8g.drawStr( 0, 22, "Teclado do Caos");
@@ -127,8 +135,14 @@ void loop() {
                   if(kpd.key[i].kchar == 27){
                     Keyboard.write(0x86);
                   }
+                  else if(kpd.key[i].kchar == 2){
+                    Keyboard.press('.');
+                  }
+                  else if(kpd.key[i].kchar == 7){
+                    Keyboard.press(',');
+                  }
                    else if(kpd.key[i].kchar == 33){
-                    Keyboard.press(0x86);
+                    Keyboard.press(0x82);
                     u8g.firstPage(); 
                     do {
                       u8g.drawStr( 0, 22, "Teclado do Caos");
@@ -136,7 +150,7 @@ void loop() {
                     } while( u8g.nextPage() );
                   }
                   else if(kpd.key[i].kchar == 46){
-                    Keyboard.press(0x84); 
+                    Keyboard.press(0x80); 
                     u8g.firstPage(); 
                     do {
                       u8g.drawStr( 0, 22, "Teclado do Caos");
@@ -165,7 +179,7 @@ void loop() {
                     Keyboard.write('c');
                   }
                   else if(kpd.key[i].kchar == 31){
-                    Keyboard.press(0x85);
+                    Keyboard.press(0x81);
                     u8g.firstPage(); 
                     do {
                       u8g.drawStr( 0, 22, "Teclado do Caos");
@@ -179,21 +193,27 @@ void loop() {
                 
                 else if(msg == " RELEASED." || msg == " IDLE."){
                   if(kpd.key[i].kchar == 46){
-                    Keyboard.release(0x84);
+                    Keyboard.release(0x80);
                     u8g.firstPage();  
                     do {
                       u8g.drawStr( 0, 22, "Teclado do Caos");
                     } while( u8g.nextPage() );
                   }
+                   else if(kpd.key[i].kchar == 2){
+                    Keyboard.release('.');
+                  }
+                  else if(kpd.key[i].kchar == 7){
+                    Keyboard.release(','); 
+                  }
                   else if(kpd.key[i].kchar == 33){
-                    Keyboard.release(0x86);
+                    Keyboard.release(0x82);
                     u8g.firstPage();  
                     do {
                       u8g.drawStr( 0, 22, "Teclado do Caos");
                     } while( u8g.nextPage() ); 
                   }
                   else if(kpd.key[i].kchar == 31){
-                    Keyboard.release(0x85);
+                    Keyboard.release(0x81);
                     u8g.firstPage();  
                     do {
                       u8g.drawStr( 0, 22, "Teclado do Caos");

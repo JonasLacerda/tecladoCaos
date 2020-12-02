@@ -3,6 +3,7 @@
 
 #include "U8glib.h"
 U8GLIB_SSD1306_128X64 u8g(U8G_I2C_OPT_NO_ACK);
+
 #define SCREEN_WIDTH 128
 #define SCREEN_HEIGHT 64
 
@@ -16,15 +17,15 @@ bool ctrl;
 bool alt;
 bool sibol;
 
-char keys[ROWS][COLS] = {
+char keys[ROWS][COLS] = { 
 {10,2,';','p',8},
-{6,7,'l','o',99},
-{11,12,'k','i',14},
-{16,'m','j','u',19},
-{' ','n','h','y',24},
+{6,7,'l','o',1},
+{11,12,'k','i',92},
+{16,'m','j','u',93},
+{' ','n','h','y',91},
 {' ','b','g','t',29},
 {31,'v','f','r',3}, 
-{1,37,'d','e',40},
+{9,37,'d','e',40},
 {33,'x','s','w',44},
 {46,'z','a','q',49}
 };
@@ -140,6 +141,9 @@ void loop() {
                   else if(kpd.key[i].kchar == 6){
                     Keyboard.press(0xD7);
                   }
+                   else if(kpd.key[i].kchar == 29){
+                    u8g.sleepOn();
+                  }
                   else if(kpd.key[i].kchar == 46){
                     Keyboard.press(0x80); 
                     ctrl = 1;
@@ -151,14 +155,14 @@ void loop() {
                 }
                 else if(msg == " PRESSED."){
                   
-                  if(kpd.key[i].kchar == "40"){
-                    Keyboard.write(0x86);
+                  if(kpd.key[i].kchar == 40){
+                    Keyboard.write(177);
                   }
                   else if(kpd.key[i].kchar == 2){
                     Keyboard.press('.');
                   }   
                   else if(kpd.key[i].kchar == 1){
-                    Keyboard.press(0xB3);
+                    Keyboard.press(192);
                   }                
                   else if(kpd.key[i].kchar == 3){                    
                     num = !num;
@@ -188,6 +192,9 @@ void loop() {
                   }
                   else if(kpd.key[i].kchar == 6){
                     Keyboard.press(0xD7);
+                  }
+                  else if(kpd.key[i].kchar == 29){
+                    u8g.sleepOff();
                   }
                   else if(kpd.key[i].kchar == 49){
                     Keyboard.write(0xB1);
@@ -230,7 +237,7 @@ void loop() {
                       else if(kpd.key[i].kchar == 'b'){
                          Keyboard.write('9');
                       }
-                      else if(kpd.key[i].kchar == 'w'){
+                      else if(kpd.key[i].kchar == 'n'){
                          Keyboard.write('0');
                       }
                       else if(kpd.key[i].kchar == 'y'){
@@ -244,6 +251,9 @@ void loop() {
                       }
                       else if(kpd.key[i].kchar == 'j'){
                          Keyboard.write('/');
+                      }
+                      else if(kpd.key[i].kchar == 91){
+                         Keyboard.write(96);
                       }
                       else{
                         Keyboard.press(kpd.key[i].kchar);       
@@ -263,8 +273,11 @@ void loop() {
                    else if(kpd.key[i].kchar == 3){
                     
                   }                   
-                  else if(kpd.key[i].kchar == "40"){
-                    Keyboard.release(0x86);
+                  else if(kpd.key[i].kchar == 40){
+                    Keyboard.release(177);
+                  }
+                  else if(kpd.key[i].kchar == 24){
+                    Keyboard.release("&#39;");
                   }
                    else if(kpd.key[i].kchar == 2){
                     Keyboard.release('.');
@@ -286,7 +299,7 @@ void loop() {
                     Keyboard.release(0xD8);
                   }
                   else if(kpd.key[i].kchar == 1 ){
-                    Keyboard.release(0xB3);
+                    Keyboard.release(192);
                   }
                   else if(kpd.key[i].kchar == 12){
                     Keyboard.release(0xDA);
